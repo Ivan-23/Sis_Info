@@ -7,8 +7,8 @@ var LibroSchema =  Schema({
     primer: String,
     paterno: String
   },
-  isbn: Number,
-  Año: Number
+  Año: Number,
+  isbn: Number
 });
 
 module.exports = mongoose.model('Libro', LibroSchema);

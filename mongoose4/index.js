@@ -32,9 +32,11 @@ var libros=[
 }
 
 function buscarByIsbn (isbn){
-
-
+  Libro.find({isbn:isbn},function(err,documentos){
+    console.log(documentos);
+  });
 }
+
 
 function main() {
   nuevosLibros(); //Inserta los libros
