@@ -1,8 +1,9 @@
 var mongoose = require('mongoose');
 var Libro = require('./models/libros.js');
 
-mongoose.connect('mongodb+srv://Usuario1:UXsroBTdtXnd60WB@cluster0-dwzs9.mongodb.net/alumnos?retryWrites=true', {
-  useNewUrlParser: true
+mongoose.connect('mongodb+srv://Usuario1:UXsroBTdtXnd60WB@cluster0-dwzs9.mongodb.net/libros?retryWrites=true', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 }).then(() => { console.log('Conectado a Mongo DB Atlas')})
 .catch(err => console.log(err));
 
@@ -21,7 +22,7 @@ var libros=[
   {Titulo:"El esclavo",Autor: {primer:"Anand",paterno:"Dilvar"},Año:2000,isbn:9789708070034},
 ];
 
-  Alumno.collection.insert(alumnos,function(err,data){
+  Libro.collection.insert(libros,function(err,data){
     if (err) {
       console.log("------------------------ERROR --------------------------");
     }else {
@@ -37,9 +38,20 @@ function buscarByIsbn (isbn){
   });
 }
 
+function modificarTituloByIsbn(isbn,nuevoTitulo,Autor){
+  Libro.findOneAndUpdate({isbn:isbn},{'Titulo':nuevoTitulo,'Autor':Autor},function(err,data){
+    if (err) {
+      console.log(err);
+    }
+    console.log(data);
+  });
+  mongoose.set('useFindAndModify', false);
+}
 
 function main() {
   nuevosLibros(); //Inserta los libros
+//  buscarByIsbn(9789708070034); //Busca un documento por isbn
+//  modificarTituloByIsbn("9788425357244","Momo","Karla García"); //Modifica titulo
 }
 
 main();    // ejecutamos main
